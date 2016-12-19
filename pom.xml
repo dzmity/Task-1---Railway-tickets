@@ -2,5 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>by.epam.rafalovich</groupId>
   <artifactId>railway_tickets</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <version>0.0.1-SNAPSHOT</version>  
+   	<modules>
+		<module>user_management</module>
+	</modules>
 </project>

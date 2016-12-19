@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/beans/spring-aop-3.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+       <context:annotation-config/>
+      <!-- <aop:aspectj-autoproxy/>-->
+    <!-- <import resource="loggers.xml"/> -->
+    
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+
+        <property name="locations">
+            <list>                
+                <value>classpath:config.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="false"/>
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+    </bean>
+
+
+    <bean id="jdbcTemplate"
+          class="org.springframework.jdbc.core.JdbcTemplate" c:dataSource="#{dataSource}"/>
+     
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+	    p:driverClassName="${jdbc.driverClassName}"
+	    p:url="${jdbc.url}"
+	    p:username="${jdbc.username}"
+	    p:password="${jdbc.password}" />
+        
+     <bean id="abstractDAO" class="by.epam.rafalovich.railway_tickets.dao.AbstractJdbcDAO" abstract="true"
+   	 	p:jdbcTemplate="#{jdbcTemplate}" />
+ 
+ 	 <bean id="countryDAO" class="by.epam.rafalovich.railway_tickets.dao.CountryDAOJdbcImpl" parent="abstractDAO" />
+        
+        
+
+    <!-- <bean id="logaspect" class="Aspect.LoggingAspect"/>
+
+    
+
+    c:id="${id}" c:fullName="${name}"
+    <bean id="client" class="Client" c:id="${id}" c:fullName="${name}" p:greeting="#{ systemEnvironment['user.name']}"/>
+
+        <constructor-arg value="${id}"/>
+        <constructor-arg value="${name}"/>
+        <property name="greeting" value="${greeting}"/>
+
+        <property name="greeting" value="Hello there!"/>
+        <constructor-arg index="0" value="1"/>
+        <constructor-arg index="1" value="Dmtry Rafalovich"/>
+   </bean>
+
+    <bean id="event" class="Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+        </constructor-arg>
+        <constructor-arg ref="dateformat"/>
+    </bean>
+
+    <bean id="dateformat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
+
+    c:loggerMap-ref="loggerMap"
+   #{ T(Event).isDay() ? fileEventLogger : consoleEventLogger}
+    <bean id="app" class="App" c:loggerMap-ref="loggerMap" c:defaultLogger="#{ T(Event).isDay() ? fileEventLogger : consoleEventLogger}"/>
+        <constructor-arg ref="loggerMap"/>
+       <constructor-arg ref="client"/>
+        <constructor-arg ref="fileEventLogger"/>
+        <constructor-arg>
+
+
+            &lt;!&ndash;<null/>&ndash;&gt;
+
+            &lt;!&ndash;<map>
+                <entry key="INFO" value-ref="consoleEventLogger"/>
+                <entry key="ERROR" value-ref="combinedEventLogger"/>
+            </map>&ndash;&gt;
+
+        </constructor-arg>
+    </bean> -->
+
+</beans>
