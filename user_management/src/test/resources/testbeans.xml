@@ -41,12 +41,12 @@
           
 	<bean id="dbcpDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
 	    p:driverClassName="${database.driverClassName}"
-	    p:url="${database.url}" />
+	    p:url="${database.url}" /> 
 	
-	<bean id="abstractDAO" class="by.epam.rafalovich.railway_tickets.dao.AbstractJdbcDAO" abstract="true"
+	<bean id="abstractDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.AbstractJdbcDAO" abstract="true"
    	 	p:jdbcTemplate="#{jdbcTemplate}" />
  
- 	 <bean id="countryDAO" class="by.epam.rafalovich.railway_tickets.dao.CountryDAOJdbcImpl" parent="abstractDAO" />
+ 	 <bean id="countryDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.CountryDAOJdbcImpl" parent="abstractDAO" />
     
 </beans>    
     

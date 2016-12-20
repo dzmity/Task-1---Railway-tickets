@@ -2,100 +2,46 @@ package user_management;
 
 import static org.junit.Assert.*;
 import static org.unitils.reflectionassert.ReflectionAssert.*;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Savepoint;
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.sql.DataSource;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.test.annotation.DirtiesContext;
-import org.unitils.UnitilsJUnit4;
-import org.unitils.dbunit.annotation.DataSet;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.unitils.dbunit.annotation.ExpectedDataSet;
-import org.unitils.dbunit.datasetloadstrategy.impl.CleanInsertLoadStrategy;
-
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import by.epam.rafalovich.railway_tickets.dao.CountryDAO;
 import by.epam.rafalovich.railway_tickets.entity.Country;
 import by.epam.rafalovich.railway_tickets.exception.DAOException;
 
-//@DataSet(value ="/dbunit/countryDataSet.xml") //
-//@DirtiesContext(classMode = AFTER_EACH_TEST_METHOD)
-public class CountryDAOTest extends UnitilsJUnit4{
-	
-	private static CountryDAO countryDAO;
-	private static ApplicationContext ctx;
-	private static Savepoint mySavepoin;
-	
-	@BeforeClass
-	public static void setUp() throws Exception {
-		ctx = new ClassPathXmlApplicationContext("testbeans.xml");
-		countryDAO = (CountryDAO)ctx.getBean("countryDAO");
-		Connection connection = null;
-		DataSource ds = (DataSource) ctx.getBean("dataSource");
-		try {
-			connection = ds.getConnection();
-	} catch (SQLException e) {
-        connection.rollback();
-        throw new Exception(e);
-    }		
-		mySavepoin = connection.setSavepoint("MYSAVEPOINT");
-	}
-	
-	@Before
-	public  void setU2p() throws Exception {
-		//rollback (mySavepoint);
-	}
-	/*@After
-	public void tearDown() {
-	    try {
-	        clearDatabase();
-	    } catch (Exception e) {
-	        fail(e.getMessage());
-	    }
-	}*/
+//@DatabaseTearDown("classpath:dbunit/countryDataSet.xml") // not required
+//@DataSet(value ="dbunit/countryDataSet.xml", loadStrategy = CleanInsertLoadStrategy.class)  // don't work
+//@Transactional(TransactionMode.ROLLBACK)
 
+@RunWith( SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath*:testbeans.xml"})
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+    DirtiesContextTestExecutionListener.class,
+    TransactionDbUnitTestExecutionListener.class })
+@DbUnitConfiguration(databaseConnection="dataSource")
+@DatabaseSetup(value="classpath:dbunit/countryDataSet.xml")
+public class CountryDAOTest {
+	
+	@Autowired
+	private CountryDAO countryDAO;
 
-	/*public void clearDatabase() throws Exception {
-	  DataSource ds = (DataSource) ctx.getBean("dataSource");
-	  Connection connection = null;
-	  try {
-	    connection = ds.getConnection();
-	    try {
-	      Statement stmt = connection.createStatement();
-	      try {
-	        stmt.execute("ROLLBACK TO SAVEPOINT SP");
-	        connection.commit();
-	      } finally {
-	        stmt.close();
-	      }
-	    } catch (SQLException e) {
-	        connection.rollback();
-	        throw new Exception(e);
-	    }
-	    } catch (SQLException e) {
-	        throw new Exception(e);
-	    } finally {
-	        if (connection != null) {
-	            connection.close();
-	        }
-	    }
-	}
 	
 	private Country initTestCountry() {
 		Country country = new Country();
 		country.setName("Test country");
 		return country;
-	}*/
+	}
 	
 	@Test
 	public void testFindById() throws DAOException{
@@ -130,7 +76,7 @@ public class CountryDAOTest extends UnitilsJUnit4{
 	}
 
 	
-	@Test
+	@Test	
 	public void testFindAll() throws DAOException {
 		List<Country> result = (List) countryDAO.findAll();
         assertPropertyLenientEquals("name", Arrays.asList("Russia", "Ukrain", "Belarus", "Australia", "Belgium"), result);

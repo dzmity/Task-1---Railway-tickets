@@ -3,7 +3,7 @@ package by.epam.rafalovich.railway_tickets.entity;
 public class User extends Entity {
 	
 	private String name;
-	private String surnama;
+	private String surname;
 	private String email;
 	private String phoneNumber;
 	private String login;
@@ -12,6 +12,13 @@ public class User extends Entity {
 	private String address;
 	private UserRole userRole;
 	
+	
+	
+	public User() {
+		super();
+		this.userRole = UserRole.USER;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -20,12 +27,12 @@ public class User extends Entity {
 		this.name = name;
 	}
 	
-	public String getSurnama() {
-		return surnama;
+	public String getSurname() {
+		return surname;
 	}
 	
-	public void setSurnama(String surnama) {
-		this.surnama = surnama;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 	
 	public String getEmail() {

@@ -40,11 +40,17 @@
 	    p:username="${jdbc.username}"
 	    p:password="${jdbc.password}" />
         
-     <bean id="abstractDAO" class="by.epam.rafalovich.railway_tickets.dao.AbstractJdbcDAO" abstract="true"
+     <bean id="abstractDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.AbstractJdbcDAO" abstract="true"
    	 	p:jdbcTemplate="#{jdbcTemplate}" />
  
- 	 <bean id="countryDAO" class="by.epam.rafalovich.railway_tickets.dao.CountryDAOJdbcImpl" parent="abstractDAO" />
-        
+ 	 <bean id="countryDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.CountryDAOJdbcImpl" parent="abstractDAO" />
+     <!-- <bean id="cityDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.CityDAOJdbcImpl" parent="abstractDAO" /> -->
+     <bean id="documentyDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.DocumentDAOJdbcImpl" parent="abstractDAO" />
+     <bean id="regionDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.RegionDAOJdbcImpl" parent="abstractDAO" />
+     <bean id="userDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.UserDAOJdbcImpl" parent="abstractDAO" />
+     <bean id="userGroupyDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.UserGroupDAOJdbcImpl" parent="abstractDAO" />
+     <bean id="userRequestDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.UserRequestDAOJdbcImpl" parent="abstractDAO" />
+     
         
 
     <!-- <bean id="logaspect" class="Aspect.LoggingAspect"/>

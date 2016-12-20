@@ -3,6 +3,7 @@ package by.epam.rafalovich.railway_tickets.dao.jdbc;
 import java.util.Collection;
 import java.util.List;
 
+import by.epam.rafalovich.railway_tickets.dao.CityDAO;
 import by.epam.rafalovich.railway_tickets.dao.mapper.CityMapper;
 import by.epam.rafalovich.railway_tickets.entity.City;
 import by.epam.rafalovich.railway_tickets.exception.DAOException;
