@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+ <countries country_id="0" country_name="Test country"/>
+ <countries country_id="1" country_name="Ukrain"/>
+ <countries country_id="2" country_name="Belarus"/>
+ <countries country_id="3" country_name="Australia"/>
+</dataset>

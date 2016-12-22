@@ -10,10 +10,17 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
+import org.unitils.UnitilsJUnit4;
+import org.unitils.dbunit.annotation.DataSet;
 import org.unitils.dbunit.annotation.ExpectedDataSet;
+import org.unitils.inject.annotation.TestedObject;
+import org.unitils.spring.annotation.SpringApplicationContext;
+import org.unitils.spring.annotation.SpringBean;
+
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import by.epam.rafalovich.railway_tickets.dao.CountryDAO;
@@ -24,18 +31,23 @@ import by.epam.rafalovich.railway_tickets.exception.DAOException;
 //@DataSet(value ="dbunit/countryDataSet.xml", loadStrategy = CleanInsertLoadStrategy.class)  // don't work
 //@Transactional(TransactionMode.ROLLBACK)
 
-@RunWith( SpringJUnit4ClassRunner.class)
+/*@RunWith( SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:testbeans.xml"})
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
     DirtiesContextTestExecutionListener.class,
     TransactionDbUnitTestExecutionListener.class })
 @DbUnitConfiguration(databaseConnection="dataSource")
-@DatabaseSetup(value="classpath:dbunit/countryDataSet.xml")
-public class CountryDAOTest {
-	
-	@Autowired
-	private CountryDAO countryDAO;
+@DatabaseSetup(value="classpath:dbunit/countryDataSet.xml")*/
 
+@SpringApplicationContext("testbeans.xml")
+@DataSet("dbunit/countryDataSet.xml")
+public class CountryDAOTest extends UnitilsJUnit4{
+	
+	
+    //private ApplicationContext applicationContext;
+	//@Autowired
+	@SpringBean("countryDAO")
+	private CountryDAO countryDAO;
 	
 	private Country initTestCountry() {
 		Country country = new Country();
@@ -56,23 +68,23 @@ public class CountryDAOTest {
 		Country country = initTestCountry();		
 		countryDAO.create(country);
 		countryDAO.create(country);
-		assertEquals("Test country", countryDAO.findById(238).getName());
-		assertEquals("Test country", countryDAO.findById(239).getName());
+		assertEquals("Test country", countryDAO.findById(278).getName());
+		assertEquals("Test country", countryDAO.findById(279).getName());
 	}	
 
 
 	@Test
-	@ExpectedDataSet({"dbunit/countryUpdate.xml"})
+	@ExpectedDataSet(value="classpath:dbunit/countryUpdate.xml")
 	public void testUpdateById()  throws DAOException{
 		Country country = initTestCountry();		
-		countryDAO.updateById(0, (country));
+		//countryDAO.updateById(0, (country));
 	}
 
 	@Test		
 	@ExpectedDataSet({"dbunit/expectedCountriesAfterDelete.xml"})
 	public void testDeleteById() throws DAOException{
 		
-		countryDAO.deleteById(4);		
+		//countryDAO.deleteById(4);		
 	}
 
 	

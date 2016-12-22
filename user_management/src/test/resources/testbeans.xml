@@ -17,6 +17,8 @@
        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+       
+       <context:annotation-config />
 
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
@@ -34,6 +36,7 @@
           
     <jdbc:embedded-database id="dataSource" type="HSQL">
         <jdbc:script location="classpath:create-db.sql"/>
+        <jdbc:script location="classpath:create-constraints.sql"/>
         <jdbc:script location="classpath:trigger.sql" separator="/;" />
         <jdbc:script location="classpath:insert-data.sql"/>
     </jdbc:embedded-database>
@@ -47,6 +50,7 @@
    	 	p:jdbcTemplate="#{jdbcTemplate}" />
  
  	 <bean id="countryDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.CountryDAOJdbcImpl" parent="abstractDAO" />
+ 	 <bean id="regionDAO" class="by.epam.rafalovich.railway_tickets.dao.jdbc.RegionDAOJdbcImpl" parent="abstractDAO" />
     
 </beans>    
     

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+<!--  <dual test="1"/> -->
+  <regions region_id= "1" country_id="1" region_name="Minskaya voblast"/>
+  
+  <regions region_id= "3" country_id="1" region_name="Gomel. voblast"/>
+ 
+  <regions region_id= "5" country_id="2" region_name="Vitebs. voblast"/>
+  
+</dataset>

@@ -14,8 +14,8 @@ import by.epam.rafalovich.railway_tickets.exception.DAOException;
 public class Start {
 	public static void main(String args[]) throws Exception{
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
-		UserDAO userDAO = (UserDAO) ctx.getBean("userDAO");
-		/*User user = new User();
+		/*UserDAO userDAO = (UserDAO) ctx.getBean("userDAO");
+		User user = new User();
 		user.setName("dima");
 		user.setSurname("reader");
 		user.setEmail("234@ipam.com");
@@ -24,12 +24,12 @@ public class Start {
 		user.setPassword("jghkjh");
 		user.setCityId(59943);
 		//user.setAddress("2jkfhkjlh");
-		userDAO.create(user);*/
+		userDAO.create(user);
 		String s = "59941,59942,59943";
 		List <User> users = (List<User>) userDAO.findByCountry(s);
 		//List <User> users = (List<User>) userDAO.findByCity(59941);
 		
-		System.out.println(users.size());
+		System.out.println(users.size());*/
 	}
 	
 	/*

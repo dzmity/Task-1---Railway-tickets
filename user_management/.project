@@ -3,6 +3,7 @@
 	<name>user_management</name>
 	<comment></comment>
 	<projects>
+		<project>railway_tickets</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

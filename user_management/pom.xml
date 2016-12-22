@@ -22,8 +22,44 @@
   <dependency>
     <groupId>org.hsqldb</groupId>
     <artifactId>hsqldb</artifactId>
-    <version>2.3.2</version>
+    <version>2.3.2</version>       
 </dependency>
+
+<dependency>
+    <groupId>org.unitils</groupId>
+    <artifactId>unitils-inject</artifactId>
+    <version>3.4.2</version>
+    <scope>test</scope>
+</dependency>
+
+<dependency>
+    <groupId>org.unitils</groupId>
+    <artifactId>unitils-core</artifactId>
+    <version>3.4.2</version>
+    <scope>test</scope>
+</dependency>
+
+<dependency>
+    <groupId>org.unitils</groupId>
+    <artifactId>unitils-spring</artifactId>
+    <version>3.4.2</version>
+    <scope>test</scope>
+</dependency>
+
+<dependency>
+	    <groupId>org.unitils</groupId>
+	    <artifactId>unitils-database</artifactId>
+	    <version>3.4.2</version>
+	    <scope>test</scope>
+</dependency>
+
+<dependency>
+	    <groupId>org.unitils</groupId>
+	    <artifactId>unitils-dbunit</artifactId>
+	    <version>3.4.2</version>
+	    <scope>test</scope>
+</dependency>
+
 
 <dependency>
     <groupId>org.slf4j</groupId>
@@ -45,19 +81,8 @@
 	  <version>${dbunit.ver}</version>
 	</dependency>
   
-	  <dependency>
-	    <groupId>org.unitils</groupId>
-	    <artifactId>unitils-dbunit</artifactId>
-	    <version>3.4.2</version>
-	    <scope>test</scope>
-	 </dependency>
-
-	<dependency>
-	    <groupId>org.unitils</groupId>
-	    <artifactId>unitils-database</artifactId>
-	    <version>3.4.2</version>
-	    <scope>test</scope>
-	</dependency>
+	  
+	
   
   	<!-- ORACLE database driver -->
 	<dependency>
