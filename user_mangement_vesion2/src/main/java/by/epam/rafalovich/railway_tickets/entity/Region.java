@@ -1,6 +1,6 @@
 package by.epam.rafalovich.railway_tickets.entity;
 
-public class Region extends Entity{
+public class Region extends Entity {
 
 	private long countryId;
 	private String regionName;

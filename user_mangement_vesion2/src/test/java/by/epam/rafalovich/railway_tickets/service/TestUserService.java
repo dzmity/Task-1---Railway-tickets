@@ -109,13 +109,13 @@ public class TestUserService {
 		when ( userDAO.existEmail(email2) ).thenReturn( true );
 		
 		boolean result = userService.register(param);
-		assertTrue(!result);
+		assertFalse(result);
 		verify(userDAO, never()).create(user);
 		
 		param.put(LOGIN,login);
 		param.put(EMAIL,email2);		
 		result = userService.register(param);
-		assertTrue(!result);
+		assertFalse(result);
 		verify(userDAO, never()).create(user);
 		
 		param.put(LOGIN,login2);
@@ -144,13 +144,52 @@ public class TestUserService {
 	}
 
 	@Test
-	public void testChangePassword() {
-		fail("Not yet implemented");
+	public void testChangePassword() throws ServiceException, DAOException {
+				
+		long id = 5;
+		long anotherId = 3;
+		String wrongPass = "1234567";
+		String newPass = "12345Qwerty";
+		String oldPass = "qwerty123";
+		String md5oldPass = DigestUtils.md5Hex(oldPass);
+		String md5newPass = DigestUtils.md5Hex(newPass);
+		String md5wrongPass = DigestUtils.md5Hex(wrongPass);		
+		
+		HashMap< String,String> param = initMap();
+		User user = createUser(param);		
+		user.setId(id);				
+		
+		when ( userDAO.changePasswordById(id, md5oldPass, md5newPass)).thenReturn( true );
+		boolean result = userService.changePassword(user, oldPass, newPass);
+		verify(userDAO, times(1)).changePasswordById(id, md5oldPass, md5newPass);		
+		assertTrue(result);
+		
+		result = userService.changePassword(user, wrongPass, newPass);
+		verify(userDAO, times(1)).changePasswordById(id, md5wrongPass, md5newPass);
+		assertFalse(result);
+		
+		
+		user.setId(anotherId);
+		result = userService.changePassword(user, oldPass, newPass);
+		verify(userDAO, times(1)).changePasswordById(anotherId, md5oldPass, md5newPass);
+		assertFalse(result);
+		
+		verifyNoMoreInteractions( userDAO );		
+		
 	}
 
 	@Test
-	public void testEditProfile() {
-		fail("Not yet implemented");
+	public void testEditProfile() throws ServiceException, DAOException {
+		
+		long id = 5;
+		HashMap< String,String> param = initMap();
+		param.put(USER_ID, "" + id);		
+		User user = createUser(param);	
+		user.setId(id);
+		userService.editProfile(param);
+		verify(userDAO).updateById(id, user);
+		
+		verifyNoMoreInteractions( userDAO );	
 	}
 
 }

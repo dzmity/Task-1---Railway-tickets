@@ -15,7 +15,7 @@ public class CityDAOJdbsImpl extends AbstractJdbcDAO implements CityDAO{
 	private static final String SQL_FIND_ALL_CITIES = "SELECT city_name, city_id, region_id FROM cities";
 	private static final String SQL_UPDATE_CITY = "UPDATE cities SET city_name = ?, region_id = ? WHERE city_id = ?";
 	private static final String SQL_DELETE_CITY = "DELETE FROM cities WHERE city_id = ?";
-	
+	private static final String SQL_FIND_CITIES_BY_REGION_ID = "SELECT city_name, city_id, region_id FROM cities WHERE region_id = ?";
 	@Override
 	public void create(City city) throws DAOException {
 		jdbcTemplate.update(SQL_CREATE_CITY, city.getCityName());
@@ -44,7 +44,14 @@ public class CityDAOJdbsImpl extends AbstractJdbcDAO implements CityDAO{
 	public Collection<City> findAll() throws DAOException {
 		List <City> cities =  jdbcTemplate.query(SQL_FIND_ALL_CITIES, new CityMapper());
 		return cities;
+	}
+
+	@Override
+	public Collection<City> findCitiesByRegionId(long regionId) throws DAOException {
+		List <City> cities =  jdbcTemplate.query(SQL_FIND_CITIES_BY_REGION_ID,new Object[]{regionId}, new CityMapper());
+		return cities;
 	}	
 
+	
 	
 }

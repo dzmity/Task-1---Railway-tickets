@@ -52,5 +52,4 @@ public class RegionDAOJdbcImpl extends AbstractJdbcDAO implements RegionDAO{
 		return regions;
 	}	
 	
-
 }

@@ -82,6 +82,18 @@ public class UserDAOJdbcImpl extends AbstractJdbcDAO implements UserDAO{
 		jdbcTemplate.update(SQL_DELETE_USER, id);
 		
 	}
+	
+	
+	
+	public Collection<User> find() throws DAOException {
+		
+	}
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public Collection<User> findAll() throws DAOException {
@@ -92,6 +104,30 @@ public class UserDAOJdbcImpl extends AbstractJdbcDAO implements UserDAO{
 	
 	
 	
+
+	@Override
+	public boolean existLogin(String login) throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean existEmail(String login) throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public User findByLoginPassword(String login, String password) throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean changePasswordById(long id, String oldPassword, String newPassword) throws DAOException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 	@Override
 	public Collection<User> findByName(String name) throws DAOException {
