@@ -1,4 +1,4 @@
-package by.epam.rafalovich.railway_tickets.dao.jdbc;
+package by.epam.rafalovich.railway_tickets.service;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.times;

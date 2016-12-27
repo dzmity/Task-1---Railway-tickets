@@ -26,7 +26,7 @@ import by.epam.rafalovich.railway_tickets.entity.UserRole;
 import by.epam.rafalovich.railway_tickets.exception.DAOException;
 import by.epam.rafalovich.railway_tickets.exception.ServiceException;
 
-public class TestUserService {
+public class UserServiceTest {
 	
 	private static final String USER_ID = "userId";
     private static final String SURNAME = "surname";

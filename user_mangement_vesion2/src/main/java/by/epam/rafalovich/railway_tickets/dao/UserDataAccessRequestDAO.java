@@ -11,5 +11,9 @@ public interface UserDataAccessRequestDAO extends GenericDAO<UserDataAccessReque
 		throw new DAOException("Unsopported opperation.");
 	}
 
+	Collection<UserDataAccessRequest> findRequestsByUserId(long id) throws DAOException;
 	
+	Collection<UserDataAccessRequest> findIncomingRequests(long id) throws DAOException;
+	
+	Collection<UserDataAccessRequest> findOutcomingRequests(long id) throws DAOException;
 }

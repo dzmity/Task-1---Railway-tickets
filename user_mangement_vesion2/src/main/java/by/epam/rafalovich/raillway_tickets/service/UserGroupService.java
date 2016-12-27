@@ -23,8 +23,16 @@ public class UserGroupService {
 			userGroupDAO.create(group);
 		} catch(DAOException e) {
 			throw new ServiceException("Exception in UserGroupService create method.", e);
-		}		
+		}				
+	}
+	
+	public void update(long id, UserGroup group) throws ServiceException {
 		
+		try {
+			userGroupDAO.updateById(id, group);
+		} catch(DAOException e) {
+			throw new ServiceException("Exception in UserGroupService update method.", e);
+		}				
 	}
 	
 	public void deleteGroup(long id) throws ServiceException {
@@ -72,5 +80,4 @@ public class UserGroupService {
 		}
 	}
 	
-
 }
